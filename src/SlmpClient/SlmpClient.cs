@@ -1,4 +1,4 @@
-﻿using System.Net.Sockets;
+using System.Net.Sockets;
 
 namespace SLMP {
     /// <summary>
@@ -114,6 +114,10 @@ namespace SLMP {
             int value = _stream!.ReadByte();
             byte[] hdrBuf;
             switch (value) {
+                // handle the case where we receive EOF
+                // from the network stream
+                case -1:
+                    throw new EndOfStreamException("received EOF from the network stream");
                 // if value is 0xd0, there's no serial no. included
                 // in the response
                 case 0xd0:
