@@ -1,4 +1,4 @@
-namespace SlmpUnitTests {
+namespace SLMPUnitTests {
     [TestClass]
     public class ReadWordDeviceUnitTests {
         [TestMethod]

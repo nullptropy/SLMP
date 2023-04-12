@@ -7,7 +7,7 @@
 // B = 0xa0,
 // SM = 0x91,
 
-namespace SlmpUnitTests {
+namespace SLMPUnitTests {
     [TestClass]
     public class ReadBitDeviceUnitTests {
         [TestMethod]
