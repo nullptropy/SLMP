@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace SLMP {
     /// <summary>
@@ -16,11 +16,16 @@ namespace SLMP {
         D = 0xa8,
         W = 0xb4,
         R = 0xaf,
+        Z = 0xcc,
         ZR = 0xb0,
         SD = 0xa9,
+
         X = 0x9c,
         Y = 0x9d,
         M = 0x90,
+        L = 0x92,
+        F = 0x93,
+        V = 0x94,
         B = 0xa0,
         SM = 0x91,
     }
@@ -48,11 +53,16 @@ namespace SLMP {
                 Device.D => DeviceType.Word,
                 Device.W => DeviceType.Word,
                 Device.R => DeviceType.Word,
+                Device.Z => DeviceType.Word,
                 Device.ZR => DeviceType.Word,
                 Device.SD => DeviceType.Word,
+
                 Device.X => DeviceType.Bit,
                 Device.Y => DeviceType.Bit,
                 Device.M => DeviceType.Bit,
+                Device.L => DeviceType.Bit,
+                Device.F => DeviceType.Bit,
+                Device.V => DeviceType.Bit,
                 Device.B => DeviceType.Bit,
                 Device.SM => DeviceType.Bit,
 
@@ -66,24 +76,8 @@ namespace SLMP {
         /// <param name="device"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static bool FromString(string device, out Device? value) {
-            switch (device.ToUpper()) {
-                case "D": value = Device.D; break;
-                case "W": value = Device.W; break;
-                case "R": value = Device.R; break;
-                case "ZR": value = Device.ZR; break;
-                case "SD": value = Device.SD; break;
-                case "X": value = Device.X; break;
-                case "Y": value = Device.Y; break;
-                case "M": value = Device.M; break;
-                case "B": value = Device.B; break;
-                case "SM": value = Device.SM; break;
-                default:
-                    value = null;
-                    return false;
-            };
-
-            return true;
+        public static bool FromString(string device, out Device value) {
+            return Enum.TryParse<Device>(device, true, out value);
         }
 
         /// <summary>
@@ -101,12 +95,8 @@ namespace SLMP {
             string sdevice = match.Groups[1].Value;
             string saddr = match.Groups[2].Value;
 
-            if (!FromString(sdevice, out Device? device)) throw new ArgumentException($"invalid device provided: {sdevice}");
+            if (!FromString(sdevice, out Device device)) throw new ArgumentException($"invalid device provided: {sdevice}");
             if (!UInt16.TryParse(saddr, out ushort uaddr)) throw new ArgumentException($"invalid address provided: {saddr}");
-
-            // this exists to convince the type checker that `device` won't be null here
-            if (device == null)
-                throw new ArgumentException("unreachable");
 
             return Tuple.Create((Device)device, uaddr);
         }

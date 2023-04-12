@@ -6,8 +6,8 @@ This project implements a client library that supports a subset of the functiona
 # Examples
 
 Currently supported devices:
-- D, W, R, ZR, SD
-- X, Y, M,  B, SM
+- D, W, R, Z, ZR, SD
+- X, Y, M, L, F, V, B, SM 
 
 Keep in mind that some of these devices might not be available for use on your targeted SLMP-compatible device.
 
