@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SLMPUnitTests {
-    internal class Utils {
+    public class Utils {
         public static string SLMP_ADDR = "192.168.3.39";
         public static int SLMP_PORT = 1200;
 
